@@ -5,7 +5,10 @@
     <title>Js junior test</title>
 </head>
 <body>
-    <canvas id="canvas" width="1280" height="600"
+    <b>- Toggle space to enable/disable movement of triangles.</b><br>
+    <b>- Toggle left click to make triangles follow/escape mouse</b><br>
+    <b>- R - restore initial positions.</b>
+    <canvas id="canvas" width="1280" height="580"
             style="border:1px solid #d3d3d3;">
         This browser does not support the canvas element.
     </canvas>
@@ -15,6 +18,10 @@
     <script>
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
+
+        // Initialization of control settings
+        var direction = 1,
+            movement = false;
 
         // Initialization of triangles
         var triangles = [];
@@ -29,7 +36,35 @@
         canvas.onmousemove = function (event) {
             triangles.map(function (triangle) {
                 triangle.trackMouse(event.offsetX, event.offsetY);
+
+                if (movement) {
+                    triangle._position.add(
+                        new Vector(
+                            event.offsetX, 
+                            event.offsetY
+                        )
+                        .subtract(triangle._position)
+                        .multiply(0.02 * direction)
+                    );
+                }
             });
+        };
+
+        // Controls setup
+        canvas.onclick = function () {
+            direction *= -1;
+        };
+        document.onkeypress = function (event) {
+            switch (event.keyCode) {
+                case 32:
+                    movement ^= true;
+                    break;
+                case 114:
+                    triangles.map(function (triangle, i) {
+                        triangle._position = new Vector(i*120 + 50, i*20 + 200);
+                    });
+                    break;
+            }
         };
 
         // Main loop

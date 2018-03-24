@@ -40,9 +40,19 @@ Object.assign(Vector.prototype, {
         return this;
     },
 
-    multiply: function (scalar) {
-        this.x *= scalar;
-        this.y *= scalar;
+    multiply: function (operand) {
+        switch (typeof operand) {
+            case 'number':
+                this.x *= operand;
+                this.y *= operand;
+                break;
+            case 'object':
+                if (operand.constructor.name === 'Vector') {
+                    this.x *= operand.x;
+                    this.y *= operand.y;
+                }
+                break;
+        }
 
         return this;
     },

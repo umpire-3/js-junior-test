@@ -58,7 +58,10 @@ Object.assign(Triangle.prototype, {
      * @returns {Vector} - vertex global coordinates (new instance)
      */
     getVertex: function (index) {
-        return this._v[index].copy().rotate(this._angle).add(this._position);
+        return this._v[index].copy()
+            .multiply(this._scale)
+            .rotate(this._angle)
+            .add(this._position);
     },
 
     /**

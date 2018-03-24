@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Js junior test</title>
+</head>
+<body>
+    <canvas id="canvas" width="1280" height="600"
+            style="border:1px solid #d3d3d3;">
+        This browser does not support the canvas element.
+    </canvas>
+
+    <script src="js/Vector.js"></script>
+    <script src="js/Triangle.js"></script>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        // Initialization of triangles
+        var triangles = [];
+        for (var i = 0; i < 10; i++) {
+            triangles.push(new Triangle({
+                position: new Vector(i*120 + 50, i*20 + 200),
+                scale: new Vector(0.05*i + 0.4, 0.05*i + 0.4)
+            }));
+        }
+
+        // Mouse listener setup
+        canvas.onmousemove = function (event) {
+            triangles.map(function (triangle) {
+                triangle.trackMouse(event.offsetX, event.offsetY);
+            });
+        };
+
+        // Main loop
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.width);
+
+            triangles.map(function (triangle) {
+                triangle.draw(ctx);
+            });
+
+            requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+    </script>
+</body>
+</html>

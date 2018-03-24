@@ -1,0 +1,23 @@
+{
+  "name": "js-junior-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "http-server -a localhost -p 8000 -c-1 ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umpire-3/js-junior-test.git"
+  },
+  "author": "Umpire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/umpire-3/js-junior-test/issues"
+  },
+  "homepage": "https://github.com/umpire-3/js-junior-test#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}

@@ -30,9 +30,11 @@ Object.assign(Triangle.prototype, {
      */
     draw: function (context) {
         // Sets up required transformations
-        context.translate(this._position.x, this._position.y);
-        context.rotate(this._angle);
-        context.scale(this._scale.x, this._scale.y);
+        context.setTransform(
+            this._scale.x * Math.cos(this._angle), this._scale.y * Math.sin(this._angle),
+            -this._scale.x * Math.sin(this._angle), this._scale.y * Math.cos(this._angle),
+            this._position.x, this._position.y
+        );
 
         // actual triangle
         context.beginPath();
@@ -46,11 +48,6 @@ Object.assign(Triangle.prototype, {
         // triangle's center of mass
         context.fillStyle = "#FF0000";
         context.fillRect(-2, -2, 4, 4);
-
-        // Restores previous transformations
-        context.scale(1/this._scale.x, 1/this._scale.y);
-        context.rotate(-this._angle);
-        context.translate(-this._position.x, -this._position.y);
     },
 
     /**
